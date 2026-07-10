@@ -1,14 +1,17 @@
 @layer components {
   .content {
     img:not(.tg-emoji):not(.sticker):not(.link_preview_image):not(.modal-img) {
-      @apply rounded-media border border-line shadow-soft;
-      width: calc(100% - var(--box-margin));
-      max-width: calc(100% - 1px);
+      @apply rounded-[8px] border border-line;
+      display: block;
+      width: auto;
+      max-width: min(100%, 38rem);
       max-height: initial;
+      box-shadow: 0 18px 44px -34px rgba(15, 23, 42, 0.62);
     }
 
     .image-list-container {
-      @apply grid grid-cols-2;
+      @apply grid grid-cols-2 gap-1.5;
+      width: min(100%, 38rem);
       grid-template-rows: masonry;
 
       &.image-list-odd {
@@ -20,6 +23,7 @@
 
     .image-list-container img {
       @apply mb-0;
+      width: 100%;
     }
 
     .tgme_widget_message_video,

@@ -18,81 +18,93 @@ const timeago = await formatPostTime(post.datetime, timezone, locale)
 const contentHtml = sanitizeContentHtml(post.content)
 const hasContent = contentHtml.length > 0
 const hasReactions = Boolean(reactionsEnabled && post.reactions?.length > 0)
-const hasTags = post.tags.length > 0
-const articleClass = 'transition duration-200'
-const timeBoxClass = 'flex items-center leading-none'
-const timeDotClass = 'h-2 w-2 rounded-full bg-accent'
-const timeTextClass = 'm-0 flex-1 pl-2.5 text-sm font-medium text-accent'
-const itemLinkClass = 'text-accent no-underline hover:underline'
-const timelineRailClass = 'ml-1 border-l-2 border-line pl-4 md:pl-8'
-const contentClass = `${timelineRailClass} py-8 text-base leading-[1.6]`
-const reactionBoxClass = `${timelineRailClass} pb-6 pt-1.5`
+const hasTags = Boolean(isItem && post.tags.length > 0)
+const articleClass = 'group relative rounded-[14px]'
+const placeholderClass =
+  'pointer-events-none absolute inset-0 rounded-[14px] border border-dashed border-line/80 bg-white/18 opacity-0 transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100'
+const cardClass =
+  'relative z-10 rounded-[14px] border border-dashed border-line/90 bg-white/58 px-5 py-5 shadow-none backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-solid group-hover:border-accent/28 group-hover:bg-white/86 group-hover:shadow-[0_18px_46px_-36px_rgba(225,106,15,0.5),0_10px_30px_-26px_rgba(15,23,42,0.34)] md:px-7 md:py-6'
+const timeBoxClass = 'flex items-center gap-3 leading-none'
+const timeDotClass =
+  'h-2 w-2 shrink-0 rounded-full bg-amber-400 shadow-[0_0_0_4px_rgba(251,191,36,0.14)] transition-colors duration-200 group-hover:bg-accent group-hover:shadow-[0_0_0_4px_rgba(225,106,15,0.13)]'
+const timeTextClass = 'm-0 flex-1 text-[0.92rem] font-medium tracking-[0.01em] text-muted'
+const itemLinkClass =
+  'text-muted no-underline decoration-muted/30 underline-offset-[0.25rem] hover:text-heading hover:underline'
+const moreButtonClass =
+  'absolute right-5 top-5 text-xl font-semibold leading-none tracking-[0.04em] text-muted/60 transition-colors duration-150 group-hover:text-muted md:right-7 md:top-6'
+const timelineRailClass = 'pl-8 md:pl-10'
+const contentClass = `${timelineRailClass} max-w-[42rem] pt-5 text-[1rem] font-normal leading-[1.72] text-ink`
+const reactionBoxClass = `${timelineRailClass} pt-2`
 const reactionListClass = 'm-0 flex list-none flex-wrap gap-1.5 p-0'
 const reactionPillClass =
-  'inline-flex items-center gap-1 rounded-full border border-line bg-code py-1 pl-1.5 pr-2 text-xs text-muted'
+  'inline-flex items-center gap-1 rounded-full border border-line/70 bg-transparent py-1 pl-1.5 pr-2 text-[0.72rem] text-muted'
 const reactionEmojiClass = 'inline-flex items-center text-sm leading-none'
 const reactionCountClass = 'font-medium opacity-80 [font-variant-numeric:tabular-nums]'
-const tagBoxClass = `${timelineRailClass} flex flex-wrap items-center gap-2 text-sm leading-[1.6]`
-const tagPaddingClass = commentsEnabled && isItem ? 'pb-8' : 'pb-5'
-const tagStandaloneClass = 'pt-8'
+const tagBoxClass = `${timelineRailClass} flex flex-wrap items-center gap-x-2.5 gap-y-1 pt-4 text-sm leading-[1.6]`
+const tagPaddingClass = commentsEnabled && isItem ? 'pb-7' : 'pb-0'
+const tagStandaloneClass = 'pt-3'
 const tagLinkClass = tagChipLinkClass
-const commentsClass = `${timelineRailClass} pb-6 pt-1.5`
+const commentsClass = `${timelineRailClass} pb-6 pt-3`
 ---
 
 <article class={articleClass} style={{ 'view-transition-name': `post-${post.id}` }}>
-  <header class={timeBoxClass}>
-    <span class={timeDotClass} aria-hidden="true"></span>
-    <p class={timeTextClass}>
-      <a href={`${SITE_URL}posts/${post.id}`} title={post.datetime} class={itemLinkClass}>
-        <time datetime={post.datetime} title={timeago}>{timeago}</time>
-      </a>
-    </p>
-  </header>
-  {hasContent && <div class:list={[contentClass, 'content']} set:html={contentHtml} />}
-  {
-    hasReactions && (
-      <div class:list={[reactionBoxClass, hasContent && '-mt-3 pt-0']}>
-        <ul class={reactionListClass} role="list" aria-label="Reactions">
-          {post.reactions.map((reaction) => (
-            <li
-              class:list={[reactionPillClass, reaction.isPaid && paidReactionClass]}
-              aria-label={getReactionLabel(reaction)}
-            >
-              <span class={reactionEmojiClass}>
-                {reaction.isPaid ? (
-                  '\u2B50'
-                ) : reaction.emojiImage ? (
-                  <img
-                    src={reaction.emojiImage}
-                    alt={reaction.emoji || 'emoji'}
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                    class="block h-[1em] w-[1em]"
-                  />
-                ) : (
-                  reaction.emoji
-                )}
-              </span>
-              <span class={reactionCountClass}>{reaction.count}</span>
-            </li>
+  <span class={placeholderClass} aria-hidden="true"></span>
+  <div class={cardClass}>
+    <header class={timeBoxClass}>
+      <span class={timeDotClass} aria-hidden="true"></span>
+      <p class={timeTextClass}>
+        <a href={`${SITE_URL}posts/${post.id}`} title={post.datetime} class={itemLinkClass}>
+          <time datetime={post.datetime} title={timeago}>{timeago}</time>
+        </a>
+      </p>
+      <span class={moreButtonClass} aria-hidden="true">...</span>
+    </header>
+    {hasContent && <div class:list={[contentClass, 'content']} set:html={contentHtml} />}
+    {
+      hasReactions && (
+        <div class:list={[reactionBoxClass, hasContent && '-mt-3 pt-0']}>
+          <ul class={reactionListClass} role="list" aria-label="Reactions">
+            {post.reactions.map((reaction) => (
+              <li
+                class:list={[reactionPillClass, reaction.isPaid && paidReactionClass]}
+                aria-label={getReactionLabel(reaction)}
+              >
+                <span class={reactionEmojiClass}>
+                  {reaction.isPaid ? (
+                    '\u2B50'
+                  ) : reaction.emojiImage ? (
+                    <img
+                      src={reaction.emojiImage}
+                      alt={reaction.emoji || 'emoji'}
+                      loading="lazy"
+                      width="20"
+                      height="20"
+                      class="block h-[1em] w-[1em]"
+                    />
+                  ) : (
+                    reaction.emoji
+                  )}
+                </span>
+                <span class={reactionCountClass}>{reaction.count}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      hasTags && (
+        <footer class:list={[tagBoxClass, tagPaddingClass, !hasContent && tagStandaloneClass]}>
+          <span class="tag-icon" aria-hidden="true" />
+          {post.tags.map((tag: string) => (
+            <a href={getTagHref(tag)} title={tag} class={tagLinkClass}>
+              #{tag}
+            </a>
           ))}
-        </ul>
-      </div>
-    )
-  }
-  {
-    hasTags && (
-      <footer class:list={[tagBoxClass, tagPaddingClass, !hasContent && tagStandaloneClass]}>
-        <span class="tag-icon" aria-hidden="true" />
-        {post.tags.map((tag: string) => (
-          <a href={getTagHref(tag)} title={tag} class={tagLinkClass}>
-            {tag}
-          </a>
-        ))}
-      </footer>
-    )
-  }
+        </footer>
+      )
+    }
+  </div>
 
   {
     commentsEnabled && isItem && (

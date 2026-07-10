@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components'
 import type { NavItem } from '../types'
 import SearchForm from './SearchForm.astro'
 import SiteFooter from './SiteFooter.astro'
@@ -29,14 +30,15 @@ const {
   tagsPathname: string
 }
 
-const asideInnerClass =
-  'relative grid grid-cols-1 items-start overflow-y-visible md:block md:max-h-[100svh] md:overflow-y-auto'
-const navClass = 'relative z-10 col-start-1 row-start-1 min-w-0 pr-8 md:block md:pr-0'
-const navListClass = 'm-0 flex list-none flex-wrap gap-0.5 pl-0 pt-5 md:block'
-const navItemClass = 'flex items-center text-sm leading-none md:mb-2.5 md:text-base md:leading-normal'
+const asideInnerClass = 'lg:max-h-[calc(100svh-3rem)] lg:overflow-y-auto'
+const navClass = 'min-w-0'
+const navListClass = 'm-0 list-none pl-0'
+const navItemClass = 'mb-1.5 flex items-center text-sm leading-none'
 const navLinkClass =
-  'flex-1 inline-block rounded-panel px-2.5 py-1.5 text-heading no-underline transition-[background-color,box-shadow] duration-150 ease-in-out hover:bg-white/65 hover:shadow-soft hover:no-underline'
-const navLinkCurrentClass = 'bg-white/75 shadow-soft'
+  'inline-flex min-h-11 flex-1 items-center gap-2 rounded-[10px] px-4 py-2 text-[0.92rem] font-semibold text-muted no-underline transition-colors duration-150 hover:bg-violet-soft hover:text-violet hover:no-underline'
+const navLinkCurrentClass = 'bg-violet-soft text-violet'
+const sectionTitleClass =
+  'mb-3 flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-muted/70 before:block before:h-1.5 before:w-1.5 before:rounded-full before:bg-violet'
 
 const primaryNavItems = [
   {
@@ -59,6 +61,7 @@ const primaryNavItems = [
 
 <div class={asideInnerClass}>
   <nav class={navClass} aria-label="Primary navigation">
+    <div class={sectionTitleClass}>Navigate</div>
     <ul class={navListClass}>
       {
         primaryNavItems.map((nav) => (
@@ -68,6 +71,7 @@ const primaryNavItems = [
               title={nav.title === 'Home' ? channelTitle : nav.title}
               class:list={[navLinkClass, currentPathname === nav.pathname && navLinkCurrentClass]}
             >
+              {nav.title === 'Home' ? <Icon name="ri:home-5-line" class="h-4 w-4 shrink-0" aria-hidden="true" /> : null}
               {nav.title}
             </a>
           </li>
@@ -85,6 +89,11 @@ const primaryNavItems = [
     </ul>
   </nav>
 
-  <SearchForm action={searchAction} googleSearchSite={googleSearchSite} />
-  <SiteFooter />
+  <div class="mt-5">
+    <div class={sectionTitleClass}>Search</div>
+    <SearchForm action={searchAction} googleSearchSite={googleSearchSite} />
+  </div>
+  <div class="mt-6">
+    <SiteFooter />
+  </div>
 </div>

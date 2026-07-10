@@ -29,11 +29,12 @@ const TAGS = getEnv(import.meta.env, Astro, 'TAGS')
 const LINKS = getEnv(import.meta.env, Astro, 'LINKS')
 const navs = parseDelimitedItems(getEnv(import.meta.env, Astro, 'NAVS'))
 
-const layoutShellClass = 'mx-5'
-const layoutGridClass = 'mx-auto flex w-full max-w-4xl flex-col md:flex-row-reverse md:items-start'
-const mainPanelClass = 'w-full min-w-0 pb-5 pt-2.5 md:mr-5 md:flex-1 md:border-r md:border-line md:pr-8 md:pt-5'
+const layoutShellClass = 'relative mx-4 pb-12 pt-5 md:mx-8 md:pt-8'
+const layoutGridClass =
+  'mx-auto grid w-full max-w-[72rem] grid-cols-1 gap-0 lg:grid-cols-[minmax(0,54rem)_minmax(15rem,17rem)] lg:justify-center lg:gap-x-16'
+const mainPanelClass = 'min-w-0 pb-8 md:pb-10'
 const asidePanelClass =
-  'sticky top-0 z-50 -mx-5 w-[calc(100%+2.5rem)] min-w-0 border-b border-line bg-paper px-5 pb-2.5 shadow-[0_4px_16px_-16px_rgba(0,0,0,0.1)] md:mx-0 md:w-52 md:min-w-52 md:self-start md:border-b-0 md:bg-transparent md:px-0 md:pb-5 md:shadow-none'
+  'hidden lg:sticky lg:top-0 lg:block lg:min-w-0 lg:self-start lg:border-l lg:border-line/70 lg:pl-8 lg:pt-4'
 const skipLinkClass =
   'pointer-events-none absolute left-5 top-0 z-[1100] -translate-y-full rounded-panel bg-heading px-3 py-2 text-sm text-white no-underline transition-transform duration-150 focus-visible:pointer-events-auto focus-visible:translate-y-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-heading'
 const skipLinkText = 'Skip to main content'
@@ -62,6 +63,9 @@ const skipLinkText = 'Skip to main content'
     <a href="#main-content" class={skipLinkClass}>{skipLinkText}</a>
     <div class={layoutShellClass}>
       <div class={layoutGridClass}>
+        <main id="main-content" class={mainPanelClass}>
+          <slot />
+        </main>
         <aside class={asidePanelClass}>
           <slot name="aside">
             <NavSidebar
@@ -79,9 +83,6 @@ const skipLinkText = 'Skip to main content'
             />
           </slot>
         </aside>
-        <main id="main-content" class={mainPanelClass}>
-          <slot />
-        </main>
       </div>
       <BackToTop />
     </div>

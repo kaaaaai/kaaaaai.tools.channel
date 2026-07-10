@@ -20,16 +20,19 @@ const BLUESKY = getEnv(import.meta.env, Astro, 'BLUESKY')
 const hideDescription = getBooleanEnv(import.meta.env, Astro, 'HIDE_DESCRIPTION')
 const descriptionHtml = channel?.descriptionHTML ? sanitizeContentHtml(channel.descriptionHTML) : ''
 
-const headerMainClass = 'mb-2.5 flex items-center p-2.5 font-semibold max-sm:p-0'
-const avatarClass = 'block h-10 w-10 rounded-full border-4 border-white object-cover shadow-soft'
-const titleWrapClass = 'ml-2.5 min-w-0 flex-1 pr-2.5 text-xl'
+const headerMainClass = 'mb-10 flex items-start gap-3 px-0 py-0 md:mb-12'
+const avatarClass =
+  'block h-[3.25rem] w-[3.25rem] rounded-full border border-amber-200/80 object-cover shadow-[0_12px_32px_-22px_rgba(225,106,15,0.55)]'
+const titleWrapClass = 'min-w-0 flex-1 pr-2 text-[1.18rem] font-bold leading-none'
 const titleLinkClass = `text-heading no-underline hover:text-ink hover:underline ${siteTitleClass}`
-const iconNavClass = 'flex items-center gap-0.5'
-const socialLinkClass = 'group p-1 no-underline'
+const eyebrowClass = 'mb-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-muted/70'
+const iconNavClass = 'flex items-center gap-2'
+const socialLinkClass =
+  'group inline-flex h-9 w-9 items-center justify-center rounded-full border border-line/65 bg-white/60 p-1 no-underline shadow-[0_8px_24px_-22px_rgba(15,23,42,0.7)] backdrop-blur transition-colors duration-150 hover:border-violet/35 hover:bg-white'
 const socialIconClass =
   'h-[1em] w-[1em] align-bottom [filter:var(--icon-secondary-filter)] group-hover:[filter:var(--icon-hover-filter)]'
 const introClass =
-  'mb-5 ml-1 break-words rounded-panel border-l-2 border-line bg-code px-5 py-2.5 text-base leading-[1.6] text-muted shadow-soft max-sm:my-5 max-sm:ml-0'
+  'mb-7 -mt-10 ml-16 max-w-[34rem] break-words text-[0.88rem] font-medium leading-[1.7] text-muted md:mb-10 md:-mt-12'
 
 const socialLinks = buildSocialLinks({
   rssUrl: RSS_URL,
@@ -57,6 +60,7 @@ const socialLinks = buildSocialLinks({
       />
     </a>
     <div class={titleWrapClass}>
+      <div class={eyebrowClass}>Telegram Microblog</div>
       <a href={SITE_URL} class={titleLinkClass} title={channel?.title}>
         {channel?.title}
       </a>

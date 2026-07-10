@@ -9,18 +9,23 @@
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif:
+    'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Noto Serif SC', 'Songti SC', 'STSong',
+    'Source Han Serif SC', serif;
   --breakpoint-sm: 37.5rem;
-  --color-paper: #f4f1ec;
-  --color-ink: #000000;
-  --color-heading: #333333;
-  --color-accent: #b23b00;
+  --color-paper: #fbfaf8;
+  --color-ink: #172132;
+  --color-heading: #111827;
+  --color-accent: #e16a0f;
+  --color-violet: #7256d8;
+  --color-violet-soft: rgba(114, 86, 216, 0.1);
   --color-surface: #ffffff;
-  --color-code: #f9f9f9;
-  --color-muted: #706862;
-  --color-link: #5a6570;
-  --color-link-hover: #3f4850;
-  --color-line: rgba(0, 0, 0, 0.05);
-  --color-footer: #666666;
+  --color-code: #f7f5f1;
+  --color-muted: #667085;
+  --color-link: #334155;
+  --color-link-hover: #111827;
+  --color-line: rgba(100, 116, 139, 0.22);
+  --color-footer: #667085;
   --color-paid: #9a6a00;
   --color-paid-line: rgba(154, 106, 0, 0.28);
   --color-paid-surface: rgba(255, 196, 0, 0.12);
@@ -53,8 +58,16 @@
 
   body {
     background-color: var(--color-paper);
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(251, 250, 248, 0.78) 44%, rgba(251, 250, 248, 1)),
+      linear-gradient(90deg, rgba(114, 86, 216, 0.035), transparent 34%, rgba(225, 106, 15, 0.025));
     color: var(--color-ink);
     font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: rgba(178, 59, 0, 0.16);
+    color: var(--color-heading);
   }
 
   img {
@@ -109,13 +122,14 @@
 
 @layer components {
   .tag-icon {
-    width: 16px;
-    height: 16px;
-    background-size: 16px 16px;
-    opacity: 0.25;
+    width: 14px;
+    height: 14px;
+    background-size: 14px 14px;
+    opacity: 0.26;
     background-image: url('../assets/tags.png');
     background-repeat: no-repeat;
     display: inline-block;
+    filter: grayscale(1) sepia(0.25);
   }
 
   #main-content {
@@ -131,6 +145,8 @@
     inset-inline-end: var(--back-to-top-offset);
     bottom: var(--back-to-top-offset);
     pointer-events: auto;
+    border: 1px solid rgba(64, 48, 34, 0.12);
+    box-shadow: 0 8px 24px -22px rgba(0, 0, 0, 0.3);
   }
 
   @supports (animation-timeline: scroll()) {

@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel'
 import edgeone from '@edgeone/astro'
 import tailwindcss from '@tailwindcss/vite'
 import astroIcon from 'astro-icon'
-import { defineConfig } from 'astro/config'
+import { defineConfig, sessionDrivers } from 'astro/config'
 import { provider } from 'std-env'
 
 const providers = {
@@ -14,7 +14,9 @@ const providers = {
     isr: false,
     edgeMiddleware: false,
   }),
-  cloudflare_workers: cloudflare(),
+  cloudflare_workers: cloudflare({
+    imageService: 'compile',
+  }),
   netlify: netlify({
     cacheOnDemandPages: false,
     edgeMiddleware: false,
@@ -45,6 +47,10 @@ const adapterProvider = adapterAliases[requestedProvider] || requestedProvider
 export default defineConfig({
   output: 'server',
   adapter: providers[adapterProvider] || providers.node,
+  session: {
+    // This app does not rely on persistent sessions, so avoid auto-provisioning KV on Workers.
+    driver: sessionDrivers.lruCache(),
+  },
   integrations: [
     astroIcon(),
   ],

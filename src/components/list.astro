@@ -11,10 +11,10 @@ const beforeCursor = posts[posts.length - 1]?.id
 const afterCursor = posts[0]?.id
 const hasOlderPosts = before && beforeCursor && Number(beforeCursor) > 1
 const hasNewerPosts = after && afterCursor
-const itemsClass = 'mt-5 mb-0 ml-7 list-none pl-0 max-sm:ml-0'
-const paginationClass = 'my-5 flex items-center justify-between'
+const itemsClass = 'mt-0 mb-0 ml-0 flex list-none flex-col gap-5 pl-0 md:gap-6'
+const paginationClass = 'mt-8 flex items-center justify-between border-t border-line/70 pt-4'
 const paginationLinkClass =
-  'inline-flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none text-muted no-underline transition-colors hover:text-accent hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-heading active:bg-line'
+  'inline-flex min-h-10 items-center justify-center gap-2 border-b border-line/80 bg-transparent px-0 py-1 text-sm font-medium leading-none text-muted no-underline transition-[color,border-color] hover:border-accent/30 hover:text-accent hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-heading'
 const paginationNewerClass = 'ml-auto'
 ---
 
@@ -44,6 +44,7 @@ const paginationNewerClass = 'ml-auto'
             class={paginationLinkClass}
           >
             <span aria-hidden="true">←</span>
+            <span>Older</span>
           </a>
         ) : null}
         {hasNewerPosts ? (
@@ -53,6 +54,7 @@ const paginationNewerClass = 'ml-auto'
             aria-label="Newer posts"
             class:list={[paginationLinkClass, paginationNewerClass]}
           >
+            <span>Newer</span>
             <span aria-hidden="true">→</span>
           </a>
         ) : null}

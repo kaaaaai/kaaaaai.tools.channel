@@ -1,15 +1,34 @@
 @layer components {
   .content {
     @apply break-words;
+    color: rgba(26, 23, 19, 0.96);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
 
     p {
-      margin: 1em 0;
+      margin: 0.7em 0 0;
+      padding-top: 0;
+      border-top: 0;
+      text-indent: 0;
+    }
+
+    p:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+      text-indent: 0;
+    }
+
+    > * + * {
+      margin-top: 0.78em;
     }
 
     ul,
     ol {
       @apply ps-10;
-      margin: 1em 0;
+      margin: 1.15em 0;
     }
 
     ul {
@@ -22,19 +41,24 @@
 
     h1 {
       @apply text-2xl font-bold;
-      margin: 0.67em 0;
+      font-family: var(--font-sans);
+      margin: 0.45em 0 0.7em;
+      letter-spacing: -0.02em;
     }
 
     h2 {
       @apply text-xl font-bold;
-      margin-top: 1.5em;
-      margin-bottom: 0.83em;
+      font-family: var(--font-sans);
+      margin-top: 1.35em;
+      margin-bottom: 0.7em;
+      letter-spacing: -0.015em;
     }
 
     h3 {
       @apply text-base font-bold;
-      margin-top: 1.5em;
-      margin-bottom: 1em;
+      font-family: var(--font-sans);
+      margin-top: 1.25em;
+      margin-bottom: 0.65em;
     }
 
     h4 {
@@ -97,9 +121,37 @@
       line-break: anywhere;
     }
 
+    > a[href^='http'],
+    p > a[href^='http']:only-child {
+      display: inline-flex;
+      max-width: 100%;
+      align-items: center;
+      border: 1px solid rgba(100, 116, 139, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 0.5rem 0.75rem;
+      color: var(--color-link);
+      font-size: 0.88em;
+      line-height: 1.35;
+      text-decoration: none;
+      box-shadow: 0 10px 28px -26px rgba(15, 23, 42, 0.5);
+    }
+
+    .tgme_widget_message_forwarded_from a {
+      display: inline;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+      box-shadow: none;
+    }
+
     pre {
-      @apply whitespace-pre-wrap rounded-panel border border-line bg-code p-2.5 shadow-soft;
-      font-size: 0.9em;
+      @apply whitespace-pre-wrap rounded-[8px] border border-line/80 bg-[rgba(255,255,255,0.36)] p-3;
+      font-family: var(--font-sans);
+      font-size: 0.88em;
     }
 
     > pre {
@@ -113,7 +165,8 @@
     }
 
     :not(pre) > code {
-      @apply rounded-panel bg-surface px-1 py-0.5;
+      @apply rounded-[4px] border border-line/70 bg-[rgba(255,255,255,0.3)] px-1.5 py-0.5 text-[0.9em];
+      font-family: var(--font-sans);
     }
 
     figure {
@@ -163,9 +216,25 @@
     }
 
     blockquote {
-      @apply rounded-panel border-l-[3px] border-accent bg-surface p-1.5 pl-2.5;
-      margin: 16px 0;
-      font-size: 0.8em;
+      @apply border-l-[2px] border-l-accent bg-transparent px-3 py-0.5;
+      margin: 14px 0;
+      color: rgba(68, 58, 49, 0.92);
+      font-size: 0.92em;
+      line-height: 1.75;
+    }
+
+    .tgme_widget_message_text {
+      line-height: inherit;
+    }
+
+    .tgme_widget_message_text > * + * {
+      margin-top: 1.1em;
+    }
+
+    .tgme_widget_message_link_preview,
+    .tgme_widget_message_document_wrap,
+    .image-list-container {
+      margin-top: 0.95em;
     }
   }
 }
