@@ -21,9 +21,9 @@ const hasReactions = Boolean(reactionsEnabled && post.reactions?.length > 0)
 const hasTags = Boolean(isItem && post.tags.length > 0)
 const articleClass = 'group relative rounded-[14px]'
 const placeholderClass =
-  'pointer-events-none absolute inset-0 rounded-[14px] border border-dashed border-line/80 bg-white/18 opacity-0 transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100'
+  'pointer-events-none absolute inset-0 rounded-[14px] border border-dashed border-line/80 bg-white/18 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.37,0,0.63,1)] group-hover:opacity-100'
 const cardClass =
-  'relative z-10 rounded-[14px] border border-dashed border-line/90 bg-white/58 px-5 py-5 shadow-none backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-solid group-hover:border-accent/28 group-hover:bg-white/86 group-hover:shadow-[0_18px_46px_-36px_rgba(225,106,15,0.5),0_10px_30px_-26px_rgba(15,23,42,0.34)] md:px-7 md:py-6'
+  'relative z-10 rounded-[14px] border border-dashed border-line/90 bg-white/58 px-5 py-5 shadow-none backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-[420ms] ease-[cubic-bezier(0.37,0,0.63,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-solid group-hover:border-accent/24 group-hover:bg-white/82 group-hover:shadow-[0_14px_34px_-30px_rgba(225,106,15,0.32),0_8px_24px_-22px_rgba(15,23,42,0.22)] md:px-7 md:py-6'
 const timeBoxClass = 'flex items-center gap-3 leading-none'
 const timeDotClass =
   'h-2 w-2 shrink-0 rounded-full bg-amber-400 shadow-[0_0_0_4px_rgba(251,191,36,0.14)] transition-colors duration-200 group-hover:bg-accent group-hover:shadow-[0_0_0_4px_rgba(225,106,15,0.13)]'
